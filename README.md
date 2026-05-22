@@ -1,28 +1,95 @@
-# VenJS 5.5
+# VenJS 5.9.0
 
-VenJS 5.5 is a lightweight JavaScript framework for building reactive web interfaces with a simple component API, signals, effects, animation helpers, API utilities, and notification tooling.
+VenJS 5.9.0 is a high-performance, lightweight JavaScript framework designed for building reactive, fast, and secure web interfaces with a clean component API, signals, effects, animation helpers, native backend integration, and an extensible ecosystem.
 
 ## Quick Start
 
 1. Clone or download this project.
-2. Serve the `venjs` folder with a local server.
+2. Serve the directory with a local web server (e.g., PHP built-in server, Apache, Nginx, or Live Server).
 3. Open `index.html` and start editing:
-- UI: `components/main.js`
-- Logic: `logic/app.js`
-- Styles: `index.css`
+- UI Layers: `components/main.js` (or page specific views like `courses.js`, `mentors.js`)
+- Business Logic: `logic/app.js`
+- Global Styles: `index.css`
 
-## Core Features in 5.5
+## What's New in VenJS 5.9.0
 
-- Component rendering with `venjs.render(...)`
-- Declarative element creation with `venjs.div(...)`, `venjs.h1(...)`, etc.
-- Reactive state using `venjs.signal(...)` and `venjs.effect(...)`
-- **Improved Reconciliation Engine**: Stable DOM patching with backward-iteration element removal.
-- Async utilities with `venjs.api.connect(...)` and `venjs.api.query(...)`
-- Scroll and entry animations with `venjs.animate(...)`
-- Browser notification helpers and service-worker integration
-- Legacy compatibility aliases: `venjs.ven(...)` and `venjs.mount(...)`
+The 5.9.0 release expands VenJS into an immersive, rich UI platform. It introduces VenJS Libs—a dedicated bundle of high-performance custom graphic, scrolling, and structural helpers optimized specifically to work alongside the core reconciliation engine without external dependencies.
 
-## Example
+### 📦 Extended Libraries (`libs/` Folder)
+
+VenJS 5.9.0 introduces four robust standalone utilities located in your `libs/` directory. These libraries provide interactive, performant visuals out of the box:
+
+1. `ScrollEcho.js`
+
+   An intersection-observer-driven scrolling engine that automatically triggers beautiful staggered text reveals when elements enter the viewport.
+
+   Features: Staggered character-by-character reveals, word-by-word fade-ups, customizable duration, easing, and thresholds.
+
+   Example Usage:
+   ```js
+   ScrollEcho.auto('#target', {
+     type: 'char',       // 'char' or 'word'
+     delay: 20,          // stagger delay in ms
+     duration: 500,      // animation duration in ms
+     threshold: 0.15,    // viewport intersection threshold
+     transformY: '12px'  // vertical displacement rise
+   });
+   ```
+
+2. `racket.js`
+
+   A dynamic 3-displayer image scroller/carousel optimized for showcases.
+
+   Features: Displays a grid of three columns on large viewports, with automatic mobile detection that dynamically collapses the layout into a single-image slider for touch targets.
+
+   Example Usage:
+   ```js
+racket.images(['img1', 'img2', 'img3'])//list of image IDs
+racket.duration([2000])//Duration
+racket.play()//Start carousel
+   ```
+
+3. `orbit.js`
+
+   A sleek, focused single-image layout scroller and banner carousel.
+
+   Features: Lightweight, swipe-friendly navigation, fade transitions, and performance-optimized canvas layers for high-resolution graphics.
+
+   Example Usage:
+   ```js
+    orbit.slides({
+        IDs: ['ic','ic','ic'],
+        interval: 5000,
+        dots: true
+    })
+   ```
+
+4. `rinx.js`
+
+   A container-scroller layout utility designed specifically for vertical or horizontal textual cards and scrolls.
+
+   Features: Highly fluid native scroll grabbing, customizable inertia, snap-to-edge locks, and horizontal wheel-to-scroll translation. Great for testimonial sections or marquee lists.
+
+   Example Usage:
+   ```js
+   rinx.slides({
+            IDs: ['scroll1', 'scroll2', 'scroll3'],
+            interval: 5000,
+            effect:'slide'
+        });
+   ```
+
+## Core Features
+
+- Component Rendering: Native mounts and DOM updates with `venjs.render(...)`
+- Declarative Markup: Build semantic DOM trees with `venjs.div(...)`, `venjs.h1(...)`, `venjs.button(...)`, and custom tags
+- Reactive State Management: Simple, robust state bindings with `venjs.signal(...)` and automated dependency tracking using `venjs.effect(...)`
+- Improved Reconciliation Engine: Stable recursive DOM patch system featuring backwards-iteration element cleanup
+- Asynchronous Utilities: Built-in API hooks utilizing `venjs.api.connect(...)` and `venjs.api.query(...)`
+- Animate Helpers: On-scroll layout triggers and frame manipulations with `venjs.animate(...)`
+- Native Notifications: Service Worker routing integration and PHP subscription payloads
+
+## Example Component Implementation
 
 ```js
 const app = document.getElementById("app");
@@ -33,88 +100,98 @@ const Counter = () => venjs.div({ class: "counter" }, [
   venjs.button({ onclick: () => count.value++ }, "Increment")
 ]);
 
+// Automatically patches the DOM on state updates
 venjs.effect(() => venjs.render(app, Counter));
 ```
 
-## Project Structure
-
-- `ven.js`: VenJS 5.0 engine
-- `ven.php`: secure backend bridge for database CRUD operations
-- `index.html`: root starter page
-- `components/main.js`: root app UI component
-- `logic/app.js`: root app business logic
-- `app/`: secondary app starter scaffold
-- `sw.js`: service worker helper for notifications
-- `ven_notify.php`: notification subscription handler
-
 ## Backend Database Engine (`ven.php`)
 
-VenJS now includes a backend-capable pattern with:
-- Client API: `venjs.db.connect(...)`
-- Server endpoint: `ven.php` (PHP + PDO + prepared statements)
+VenJS features secure client-to-database communication out of the box using SQL parameterization patterns.
 
-### Configure Credentials
+Client API: `venjs.db.connect(...)`
 
-Open `ven.php` and edit the `CONFIG` block:
-- `db_host`
-- `db_port`
-- `db_name`
-- `db_user`
-- `db_pass`
-- `api_key`
-- `allowed_origins`
-- `allowed_tables`
+Server Endpoint: `ven.php` (PHP + PDO + Prepared Statements)
 
-### Example Usage
+### Configuration
+
+Open `ven.php` and update the database configuration block:
+
+```php
+define('CONFIG', [
+    'db_host' => 'localhost',
+    'db_port' => '3306',
+    'db_name' => 'mva_academy',
+    'db_user' => 'your_db_user',
+    'db_pass' => 'your_db_password',
+    'api_key' => 'SECURE_GENERATED_API_KEY_HERE',
+    'allowed_origins' => ['https://mva.com', 'https://yourdevdomain.local'],
+    'allowed_tables' => ['users', 'courses', 'enrollments', 'messages']
+]);
+```
+
+### Database CRUD Example
 
 ```js
 const server = venjs.db.connect({
   endpoint: '/ven.php',
-  apiKey: 'CHANGE_THIS_TO_MATCH_VEN_PHP',
+  apiKey: 'YOUR_SECURE_API_KEY',
   table: 'users'
 });
 
-// Create
+// CREATE
 await server.create({
   email: 'demo@site.com',
-  password_hash: '$2y$10$...'
+  password_hash: '$2y$10$...' // Make sure to hash passwords
 });
 
-// Read
+// READ (Query filtering performed securely in PHP)
 const users = await server.read({
   select: ['id', 'email'],
   where: { email: 'demo@site.com' },
   limit: 1
 });
 
-// Update
+// UPDATE
 await server.update(
   { email: 'demo@site.com' },
   { email: 'new@site.com' }
 );
 
-// Delete
+// DELETE
 await server.delete({ email: 'new@site.com' });
 
-// Login (password_verify on server)
+// AUTHENTICATION LOGIN (Utilizes password_verify on backend server)
 const auth = await server.login(
-  { email: 'demo@site.com', password: 'plainTextInput' },
+  { email: 'demo@site.com', password: 'plainTextInputPassword' },
   { userField: 'email', passField: 'password_hash', select: ['id', 'email'] }
 );
 ```
 
-### Security Notes
+## Security Guardrails
 
-- No raw SQL is accepted from the client.
-- Queries are parameterized with prepared statements.
-- Table access is restricted by `allowed_tables`.
-- Column/table identifiers are validated before SQL is built.
-- API key check uses `hash_equals`.
-- CORS origin is allowlisted.
-- Login uses `password_verify` (store hashed passwords only).
+- Prepared SQL Statements Only: No raw SQL strings are accepted from the client. Parameter bindings prevent SQL Injection (SQLi).
+- Access Table Restrictions: Only tables declared inside `allowed_tables` in the PHP config can be queried.
+- Identifier Sanitization: Column names and table names are checked against allowlists to prevent query tampering.
+- CORS Headers Enforcement: Only requests from designated origin sites are processed.
+- Secure Verification: Handshakes utilize `hash_equals` to protect API keys from timing attacks.
+
+## Directory Architecture
+
+- `ven.js` — Core VenJS engine code
+- `ven.php` — Backend PHP PDO prepared statement endpoint
+- `libs/` — Custom visual extension utilities
+- `ScrollEcho.js` — Text scroll reveal library
+- `racket.js` — 3-displayer image/card responsive slider
+- `orbit.js` — Banner visual image scroller
+- `rinx.js` — Text/card container slider
+- `index.html` — App launcher root file
+- `components/` — Modular components and views folder (e.g., `main.js`, `courses.js`, `mentors.js`)
+- `logic/app.js` — Base global application state router
+- `sw.js` — Service worker notifications file
 
 ## License
 
-MIT License  
-Copyright (c) 2026 Aximon  
+MIT License
+Copyright (c) 2026 Aximon
 Created by Myxo Victor
+

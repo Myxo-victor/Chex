@@ -90,8 +90,11 @@ class ScrollEcho {
                 }
 
                 // Apply initial hidden layout properties & custom configurations
+                span.style.display = 'inline-block';
+                span.style.maxWidth = '100%';
                 span.style.opacity = '0';
                 span.style.transform = `translateY(${this.options.transformY})`;
+                span.style.transitionProperty = 'opacity, transform';
                 span.style.transitionDuration = `${this.options.duration}ms`;
                 span.style.transitionTimingFunction = this.options.ease;
 

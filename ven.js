@@ -1,7 +1,7 @@
 /*
 * @author Myxo victor
 * @type Enterprise-Level UI Framework + Engine
-* @Version 5.5 (Unified: VDom + Signals + Store + Animation + API + Notifications + Components)
+* @Version 5.9.0 (Unified: VDom + Signals + Store + Animation + API + Notifications + Components)
 * @copy Copyright Aximon 2026 | MIT License
 */
 

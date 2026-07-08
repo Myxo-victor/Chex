@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Myxo victor
- * VenJS v5.0 Notification Handler
+ * VenJS v5.10.0 Notification Handler
  * Receives device subscription data from VenJS and stores it for server-side push notifications.
  */
 

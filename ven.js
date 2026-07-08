@@ -1,7 +1,7 @@
 /*
 * @author Myxo victor
 * @type Enterprise-Level UI Framework + Engine
-* @Version 5.9.0 (Unified: VDom + Signals + Store + Animation + API + Notifications + Components)
+* @Version 5.10.0 (Unified: VDom + Signals + Store + Animation + API + Notifications + Components)
 * @copy Copyright Aximon 2026 | MIT License
 */
 
@@ -432,7 +432,7 @@ const venjs = (() => {
             },
             push: (options) => {
                 if (isWeb && Notification.permission === "granted") {
-                    const n = new Notification("VenJS 5.0 App", {
+                    const n = new Notification("VenJS 5.10.0 App", {
                         body: options.Content,
                         icon: options.icon || '',
                     });

@@ -27,6 +27,7 @@ const router = venjs.createRouter({
     '/home': () => RoutePage({ keyName: 'home' }),
     '/features': () => RoutePage({ keyName: 'features' }),
     '/started': () => RoutePage({ keyName: 'started' }),
+    '/demo': () => (typeof DemoPage !== 'undefined' ? DemoPage() : RoutePage({ keyName: 'home' })),
     '*': () => RoutePage({ keyName: 'home' })
 }, { mode: 'history', base: '/venjs' });
 
@@ -45,7 +46,8 @@ const App = () => venjs.div({ class: 'app' }, [
     venjs.div({ class: 'nav' }, [
         routeLink('Home', '/home'),
         routeLink('Features', '/features'),
-        routeLink('Start', '/started')
+        routeLink('Start', '/started'),
+        routeLink('Demo', '/demo')
     ]),
     router.view()
 ]);

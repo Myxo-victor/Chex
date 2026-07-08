@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * VenJS 5.5 Secure Database Engine
+ * VenJS 5.10.0 Secure Database Engine
  *
  * Configure your database credentials in CONFIG below.
  * This endpoint is used by venjs.db.connect(...).

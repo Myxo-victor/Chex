@@ -1,6 +1,6 @@
-# VenJS 5.9.0
+# VenJS 5.10.0
 
-VenJS 5.9.0 is a high-performance, lightweight JavaScript framework designed for building reactive, fast, and secure web interfaces with a clean component API, signals, effects, animation helpers, native backend integration, and an extensible ecosystem.
+VenJS 5.10.0 is a high-performance, lightweight JavaScript framework designed for building reactive, fast, and secure web interfaces with a clean component API, signals, effects, animation helpers, native backend integration, and an extensible ecosystem.
 
 ## Quick Start
 
@@ -17,7 +17,7 @@ The 5.9.0 release expands VenJS into an immersive, rich UI platform. It introduc
 
 ### 📦 Extended Libraries (`libs/` Folder)
 
-VenJS 5.9.0 introduces four robust standalone utilities located in your `libs/` directory. These libraries provide interactive, performant visuals out of the box:
+VenJS 5.10.0 introduces five robust standalone utilities located in your `libs/` directory. These libraries provide interactive, performant visuals out of the box:
 
 1. `ScrollEcho.js`
 
@@ -47,7 +47,7 @@ VenJS 5.9.0 introduces four robust standalone utilities located in your `libs/` 
 racket.images(['img1', 'img2', 'img3'])//list of image IDs
 racket.duration([2000])//Duration
 racket.play()//Start carousel
-   ```
+   ``
 
 3. `orbit.js`
 
@@ -78,6 +78,33 @@ racket.play()//Start carousel
             effect:'slide'
         });
    ```
+
+## What's New in VenJS 5.10.0
+
+The 5.10.0 release extends the `libs/` bundle with **Smooth.js** — a seamless, fluid, continuous infinite ticker slider.
+
+### 🎞️ Smooth.js (NEW)
+
+A high-performance continuous ticker carousel powered by `requestAnimationFrame` delta-time rendering. Unlike step-based carousels, it scrolls endlessly without pausing, supports cloning rich DOM nodes or fallback image URLs, responsive column counts (3 on desktop, 2 on mobile), customizable speed, and on-the-fly direction switching.
+
+Declarative usage:
+
+```js
+smooth.start([
+  { selector: '#carousel', itemSelector: '.carousol-image', speed: 80, direction: 'left' }
+]);
+```
+
+Chainable usage:
+
+```js
+smooth
+  .mount('#carousel')
+  .items(['img1', 'img2', 'img3', 'img4'])
+  .speed(100)
+  .direction('left')
+  .play();
+```
 
 ## Core Features
 
@@ -184,10 +211,22 @@ const auth = await server.login(
 - `racket.js` — 3-displayer image/card responsive slider
 - `orbit.js` — Banner visual image scroller
 - `rinx.js` — Text/card container slider
+- `smooth.js` — Continuous infinite ticker slider
 - `index.html` — App launcher root file
 - `components/` — Modular components and views folder (e.g., `main.js`, `courses.js`, `mentors.js`)
 - `logic/app.js` — Base global application state router
 - `sw.js` — Service worker notifications file
+
+## Documentation
+
+A complete, multi-page documentation website lives in the `docs/` folder (sibling of this `venjs/` folder). Open `docs/index.html` via a local server to browse:
+
+- **Overview & Getting Started** — `docs/index.html`, `docs/getting-started.html`
+- **Core Engine** — signals, rendering, router, store, API client, animate, notifications (`docs/core/`)
+- **Components** — Button, Input, AppBar, SideBar, BottomNav, Card (`docs/components/`)
+- **Backend** — database engine (`ven.php`), notification server, security (`docs/backend/`)
+- **Libraries** — ScrollEcho, Racket, Orbit, Rinx, Smooth (`docs/libs/`)
+- **Live Examples** — `docs/examples.html` (built with the real `ven.js` engine)
 
 ## License
 

@@ -1,5 +1,5 @@
 /*
-* VenJS v5.0 Service Worker
+* VenJS v5.10.0 Service Worker
 * @author Myxo victor
 * IMPORTANT: Place this file in the root directory of your website.
 * Service workers cannot be loaded from CDNs due to browser security restrictions.

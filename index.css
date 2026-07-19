@@ -1,73 +1,118 @@
-/* VenJS 5.0 starter stylesheet */
+/*
+  Chex — global stylesheet
+  Load this before main.js runs. Page-specific styles (the welcome page)
+  are injected by main.js itself and reference the tokens defined here.
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  Recommended fonts — add these to your <head> rather than @import,
+  so they aren't render-blocking:
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+*/
+
+:root {
+  /* surfaces */
+  --chex-bg: #0a0a0c;
+  --chex-surface: #131316;
+  --chex-surface-2: #1a1a1f;
+  --chex-border: rgba(255, 255, 255, 0.08);
+  --chex-border-strong: rgba(255, 255, 255, 0.16);
+
+  /* text */
+  --chex-text: #f4f4f2;
+  --chex-text-dim: #a3a3ab;
+  --chex-text-faint: #5c5c66;
+
+  /* brand */
+  --chex-accent: rgb(47, 47, 248);
+  --chex-accent-dim: #9fd132;
+  --chex-accent-ink: white;
+  --chex-accent-2: #ff6b57;
+
+  /* type */
+  --chex-font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --chex-font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --chex-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, Consolas, monospace;
+
+  --chex-radius-sm: 8px;
+  --chex-radius-md: 14px;
+  --chex-radius-lg: 24px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-    color: #0f172a;
+  margin: 0;
+  min-width: 320px;
+  background: var(--chex-bg);
+  color: var(--chex-text);
+  font-family: var(--chex-font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-.app {
-    max-width: 860px;
-    margin: 0 auto;
-    min-height: 100vh;
-    padding: 32px 20px;
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--chex-font-display);
+  color: var(--chex-text);
 }
 
-.hero-title {
-    font-size: 2rem;
-    margin-bottom: 10px;
+p {
+  margin: 0;
 }
 
-.hero-copy {
-    color: #334155;
-    margin-bottom: 20px;
+a {
+  color: inherit;
 }
 
-.nav {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 22px;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-.nav-btn {
-    border: 1px solid #cbd5e1;
-    background: #ffffff;
-    color: #0f172a;
-    padding: 10px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+button {
+  font-family: inherit;
 }
 
-.nav-btn:hover {
-    border-color: #0f766e;
+code, pre {
+  font-family: var(--chex-font-mono);
 }
 
-.nav-btn.active {
-    background: #0f766e;
-    border-color: #0f766e;
-    color: #ffffff;
+::selection {
+  background: rgba(201, 255, 63, 0.28);
+  color: var(--chex-text);
 }
 
-.page {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 18px;
+:focus-visible {
+  outline: 2px solid var(--chex-accent);
+  outline-offset: 2px;
 }
 
-.page-title {
-    margin-bottom: 8px;
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--chex-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--chex-border-strong);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--chex-text-faint);
 }
 
-.page-copy {
-    color: #334155;
-    line-height: 1.6;
+.logo{
+  width: 40px;
+  height: auto;
+  border-radius: 6px;
 }

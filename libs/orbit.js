@@ -1,7 +1,7 @@
 /**
  * OrbitJS Engine V3.1.0 - Professional Grade
  * Fixed Visibility & Dynamic Rendering Support
- * Features: Seamless Loop, Touch, Hover-Pause, Auto-Dots, venjs-Ready.
+ * Features: Seamless Loop, Touch, Hover-Pause, Auto-Dots, Chex-Ready.
  * @author Myxo victor
  * Single Image slider (Allows us to display slide through bunch of images 1 by 1)
  */
@@ -14,7 +14,7 @@ const orbit = {
      * @param {Object} config - { IDs: ['id1', 'id2'], interval: 4000, dots: true }
      */
     slides: function(config) {
-        // 1. Initial Check & Delay for Dynamic Content (VenJS support)
+        // 1. Initial Check & Delay for Dynamic Content (Chex support)
         const init = () => {
             const ids = config.IDs || [];
             const elements = ids.map(id => document.getElementById(id)).filter(el => el !== null);

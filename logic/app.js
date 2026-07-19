@@ -1,26 +1,36 @@
-/*
-* VenJS 5.0 starter logic
-* Use this file for API calls, state workflows, and app-level side effects.
-*/
+const app = document.getElementById("app");
 
-const data = venjs.api.connect('https://jsonplaceholder.typicode.com/users/1', {
-    mode: 'cors',
-    headers: {
-        'Content-Type': 'application/json'
-    }
+const routeLink = (label, route) => Chex.button({
+  class: window.router.path.value === route ? "nav-btn active" : "nav-btn",
+  onclick: () => window.router.navigate(route)
+}, label);
+
+const App = () => Chex.div({ class: "app" }, [
+  Chex.h1({ class: "hero-title" }, "Chex Multi-Page Demo"),
+  Chex.p({ class: "hero-copy" }, "Each page lives in its own file under components/."),
+  Chex.div({ class: "nav" }, [
+    routeLink("Home", "/home"),
+    routeLink("About", "/about"),
+    routeLink("Contact", "/contact"),
+    routeLink("Demo", "/demo")
+  ]),
+  window.router.view()
+]);
+
+Chex.render(app, App);
+
+if (window.router.path.value === "/") {
+  window.router.navigate("/home");
+}
+
+Chex.animate('.hero-title', {
+  slideFrom: "top",
+  duration: 700,
+  opacity: [0, 1]
 });
 
-data.then(response => {
-    if (!response || !response.username) {
-        throw new Error('Data received but format is unexpected.');
-    }
-
-    console.log('VenJS 5.0: Connection Successful');
-    console.log('User Full Name:', response.name);
-    console.log('Username:', response.username);
-    console.log('Email:', response.email);
-    console.log('Company:', response.company.name);
-}).catch(error => {
-    console.error('VenJS 5.0: Connection Failed', error);
-    console.warn('Debug tip: ensure your local server is running and outbound requests are allowed.');
+Chex.animate('.page', {
+  slideFrom: "bottom",
+  duration: 500,
+  opacity: [0, 1]
 });

@@ -1,4 +1,4 @@
-VenJS 5.0 API folder
+Chex 6.0 API folder
 
 Put backend API entry files for your application in this folder.
 Examples: PHP, Java, Python, Ruby, Node.js, Rust, Go.

@@ -1,197 +1,121 @@
-# VenJS 5.9.0
+# Chex 6.0.0
 
-VenJS 5.9.0 is a high-performance, lightweight JavaScript framework designed for building reactive, fast, and secure web interfaces with a clean component API, signals, effects, animation helpers, native backend integration, and an extensible ecosystem.
+Chex is a lightweight JavaScript UI engine for fast, reactive, component-driven interfaces. It runs directly in the browser with no compiler or build step.
 
-## Quick Start
+## Quick start
 
-1. Clone or download this project.
-2. Serve the directory with a local web server (e.g., PHP built-in server, Apache, Nginx, or Live Server).
-3. Open `index.html` and start editing:
-- UI Layers: `components/main.js` (or page specific views like `courses.js`, `mentors.js`)
-- Business Logic: `logic/app.js`
-- Global Styles: `index.css`
+Include the engine, then write components with the tag helpers you need:
 
-## What's New in VenJS 5.9.0
-
-The 5.9.0 release expands VenJS into an immersive, rich UI platform. It introduces VenJS Libs—a dedicated bundle of high-performance custom graphic, scrolling, and structural helpers optimized specifically to work alongside the core reconciliation engine without external dependencies.
-
-### 📦 Extended Libraries (`libs/` Folder)
-
-VenJS 5.9.0 introduces four robust standalone utilities located in your `libs/` directory. These libraries provide interactive, performant visuals out of the box:
-
-1. `ScrollEcho.js`
-
-   An intersection-observer-driven scrolling engine that automatically triggers beautiful staggered text reveals when elements enter the viewport.
-
-   Features: Staggered character-by-character reveals, word-by-word fade-ups, customizable duration, easing, and thresholds.
-
-   Example Usage:
-   ```js
-   ScrollEcho.auto('#target', {
-     type: 'char',       // 'char' or 'word'
-     delay: 20,          // stagger delay in ms
-     duration: 500,      // animation duration in ms
-     threshold: 0.15,    // viewport intersection threshold
-     transformY: '12px'  // vertical displacement rise
-   });
-   ```
-
-2. `racket.js`
-
-   A dynamic 3-displayer image scroller/carousel optimized for showcases.
-
-   Features: Displays a grid of three columns on large viewports, with automatic mobile detection that dynamically collapses the layout into a single-image slider for touch targets.
-
-   Example Usage:
-   ```js
-racket.images(['img1', 'img2', 'img3'])//list of image IDs
-racket.duration([2000])//Duration
-racket.play()//Start carousel
-   ```
-
-3. `orbit.js`
-
-   A sleek, focused single-image layout scroller and banner carousel.
-
-   Features: Lightweight, swipe-friendly navigation, fade transitions, and performance-optimized canvas layers for high-resolution graphics.
-
-   Example Usage:
-   ```js
-    orbit.slides({
-        IDs: ['ic','ic','ic'],
-        interval: 5000,
-        dots: true
-    })
-   ```
-
-4. `rinx.js`
-
-   A container-scroller layout utility designed specifically for vertical or horizontal textual cards and scrolls.
-
-   Features: Highly fluid native scroll grabbing, customizable inertia, snap-to-edge locks, and horizontal wheel-to-scroll translation. Great for testimonial sections or marquee lists.
-
-   Example Usage:
-   ```js
-   rinx.slides({
-            IDs: ['scroll1', 'scroll2', 'scroll3'],
-            interval: 5000,
-            effect:'slide'
-        });
-   ```
-
-## Core Features
-
-- Component Rendering: Native mounts and DOM updates with `venjs.render(...)`
-- Declarative Markup: Build semantic DOM trees with `venjs.div(...)`, `venjs.h1(...)`, `venjs.button(...)`, and custom tags
-- Reactive State Management: Simple, robust state bindings with `venjs.signal(...)` and automated dependency tracking using `venjs.effect(...)`
-- Improved Reconciliation Engine: Stable recursive DOM patch system featuring backwards-iteration element cleanup
-- Asynchronous Utilities: Built-in API hooks utilizing `venjs.api.connect(...)` and `venjs.api.query(...)`
-- Animate Helpers: On-scroll layout triggers and frame manipulations with `venjs.animate(...)`
-- Native Notifications: Service Worker routing integration and PHP subscription payloads
-
-## Example Component Implementation
-
-```js
-const app = document.getElementById("app");
-const count = venjs.signal(0);
-
-const Counter = () => venjs.div({ class: "counter" }, [
-  venjs.h1({}, `Count: ${count.value}`),
-  venjs.button({ onclick: () => count.value++ }, "Increment")
-]);
-
-// Automatically patches the DOM on state updates
-venjs.effect(() => venjs.render(app, Counter));
+```html
+<script src="./Chex.js"></script>
+<script src="./components/main.js"></script>
 ```
 
-## Backend Database Engine (`ven.php`)
+```js
+const { div, h1, button } = Chex;
+const app = document.getElementById('app');
+const count = Chex.signal(0);
 
-VenJS features secure client-to-database communication out of the box using SQL parameterization patterns.
+const Counter = () => div({ class: 'counter' }, [
+  h1(`Count: ${count.value}`),
+  button({ onClick: () => (count.value += 1) }, 'Increment')
+]);
 
-Client API: `venjs.db.connect(...)`
+Chex.render(app, Counter);
+```
 
-Server Endpoint: `ven.php` (PHP + PDO + Prepared Statements)
+## Fast element API
 
-### Configuration
+Chex tag helpers accept props when you have them, and accept children directly when you do not:
 
-Open `ven.php` and update the database configuration block:
+```js
+const { div, h1, button } = Chex;
 
-```php
-define('CONFIG', [
-    'db_host' => 'localhost',
-    'db_port' => '3306',
-    'db_name' => 'mva_academy',
-    'db_user' => 'your_db_user',
-    'db_pass' => 'your_db_password',
-    'api_key' => 'SECURE_GENERATED_API_KEY_HERE',
-    'allowed_origins' => ['https://mva.com', 'https://yourdevdomain.local'],
-    'allowed_tables' => ['users', 'courses', 'enrollments', 'messages']
+// With props
+div({ class: 'hero' }, [
+  h1({}, 'Title'),
+  button({ onClick: save }, 'Save')
+]);
+
+// No empty props object required
+div([
+  h1('Title'),
+  button('Save')
 ]);
 ```
 
-### Database CRUD Example
+You can also use `Chex.div(...)`, `Chex.h1(...)`, and any standard HTML tag directly.
+
+## Core features
+
+- Fast VNode rendering and DOM patching with `Chex.render(...)`
+- Concise tag helpers and custom-tag support
+- Signals and effects: `Chex.signal(...)`, `Chex.effect(...)`
+- Hash or history routing with `Chex.createRouter(...)`
+- Fetch and cached query helpers through `Chex.api`
+- Secure PHP database client through `Chex.db`
+- Notifications, service-worker registration, and animation helpers
+- Reusable UI components: Button, Input, AppBar, SideBar, BottomNav, and Card
+
+## Backend database engine
+
+`Chex.php` is the optional secure PHP/PDO endpoint used by `Chex.db.connect(...)`.
 
 ```js
-const server = venjs.db.connect({
-  endpoint: '/ven.php',
+const server = Chex.db.connect({
+  endpoint: '/Chex.php',
   apiKey: 'YOUR_SECURE_API_KEY',
   table: 'users'
 });
 
-// CREATE
-await server.create({
-  email: 'demo@site.com',
-  password_hash: '$2y$10$...' // Make sure to hash passwords
-});
-
-// READ (Query filtering performed securely in PHP)
-const users = await server.read({
-  select: ['id', 'email'],
-  where: { email: 'demo@site.com' },
-  limit: 1
-});
-
-// UPDATE
-await server.update(
-  { email: 'demo@site.com' },
-  { email: 'new@site.com' }
-);
-
-// DELETE
-await server.delete({ email: 'new@site.com' });
-
-// AUTHENTICATION LOGIN (Utilizes password_verify on backend server)
-const auth = await server.login(
-  { email: 'demo@site.com', password: 'plainTextInputPassword' },
-  { userField: 'email', passField: 'password_hash', select: ['id', 'email'] }
-);
+await server.create({ email: 'demo@example.com' });
+const users = await server.read({ select: ['id', 'email'], limit: 10 });
 ```
 
-## Security Guardrails
+Open `Chex.php` to set database credentials, allowed origins, allowed tables, and the API key. The client sends the key in the `X-Chex-Key` header.
 
-- Prepared SQL Statements Only: No raw SQL strings are accepted from the client. Parameter bindings prevent SQL Injection (SQLi).
-- Access Table Restrictions: Only tables declared inside `allowed_tables` in the PHP config can be queried.
-- Identifier Sanitization: Column names and table names are checked against allowlists to prevent query tampering.
-- CORS Headers Enforcement: Only requests from designated origin sites are processed.
-- Secure Verification: Handshakes utilize `hash_equals` to protect API keys from timing attacks.
+`Chex_notify.php` receives browser notification registrations. Pair it with `Chex.notification.ask('/Chex_notify.php')` when notifications are enabled.
 
-## Directory Architecture
+## Included libraries
 
-- `ven.js` — Core VenJS engine code
-- `ven.php` — Backend PHP PDO prepared statement endpoint
-- `libs/` — Custom visual extension utilities
-- `ScrollEcho.js` — Text scroll reveal library
-- `racket.js` — 3-displayer image/card responsive slider
-- `orbit.js` — Banner visual image scroller
-- `rinx.js` — Text/card container slider
-- `index.html` — App launcher root file
-- `components/` — Modular components and views folder (e.g., `main.js`, `courses.js`, `mentors.js`)
-- `logic/app.js` — Base global application state router
-- `sw.js` — Service worker notifications file
+All libraries are standalone and dependency-free. Load them after `Chex.js` when needed.
+
+| File | Global | Purpose |
+| --- | --- | --- |
+| `scrollEcho.js` | `ScrollEcho` | Scroll-triggered text and element reveals. |
+| `racket.js` | `racket` | Responsive multi-panel image carousel. |
+| `orbit.js` | `orbit` | Swipe-friendly banner and slider helper. |
+| `rinx.js` | `rinx` | Horizontal and vertical scroll-card layouts. |
+| `smooth.js` | `smooth` | Continuous ticker and infinite carousel. |
+| `modal.js` | `modal` | Self-styling, zero-dependency accessible modal engine. |
+| `skeleton.js` | `skeleton` | DOM-to-skeleton shimmer loader that reduces layout shift. |
+
+Example:
+
+```html
+<script src="./Chex.js"></script>
+<script src="./libs/modal.js"></script>
+<script src="./libs/skeleton.js"></script>
+```
+
+## Project structure
+
+```text
+ChexJs/
+  Chex.js              Core engine
+  Chex.php             Optional PHP/PDO backend
+  Chex_notify.php      Notification registration endpoint
+  components/          Page components and views
+  libs/                Standalone visual and UI helpers
+  index.html           Welcome page launcher
+  index.css            Welcome page styles
+  sw.js                Service worker
+```
+
+## Documentation
+
+Open `docs/index.html` through a local web server for the full API, component, backend, library, and example guides.
 
 ## License
 
-MIT License
-Copyright (c) 2026 Aximon
-Created by Myxo Victor
-
+MIT License. Copyright (c) 2026 Aximon. Created by Myxo Victor.

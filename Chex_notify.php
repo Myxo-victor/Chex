@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Myxo victor
- * VenJS v5.0 Notification Handler
- * Receives device subscription data from VenJS and stores it for server-side push notifications.
+ * Chex v6.0.0 Notification Handler
+ * Receives device subscription data from Chex and stores it for server-side push notifications.
  */
 
 header("Access-Control-Allow-Origin: *");
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode([
                 "status" => "success",
                 "code" => 200,
-                "message" => "Device successfully registered to the VenJS 5.0 ecosystem."
+                "message" => "Device successfully registered to the Chex 6.0 ecosystem."
             ]);
         } else {
             http_response_code(500);
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode([
         "status" => "error",
         "code" => 405,
-        "message" => "Method Not Allowed. Use POST via VenJS 5.0 notification APIs."
+        "message" => "Method Not Allowed. Use POST via Chex 6.0 notification APIs."
     ]);
 }
 ?>

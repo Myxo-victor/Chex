@@ -1,5 +1,5 @@
 /*
-* VenJS v5.0 Service Worker
+* Chex v6.0.0 Service Worker
 * @author Myxo victor
 * IMPORTANT: Place this file in the root directory of your website.
 * Service workers cannot be loaded from CDNs due to browser security restrictions.
@@ -7,8 +7,8 @@
 
 self.addEventListener('push', function(event) {
     let data = {
-        title: 'VenJS 5.0 Update',
-        content: 'You have a new notification from VenJS 5.0.',
+        title: 'Chex 6.0 Update',
+        content: 'You have a new notification from Chex 6.0.',
         url: '/'
     };
 
@@ -36,7 +36,7 @@ self.addEventListener('push', function(event) {
         ]
     };
 
-    event.waitUntil(self.registration.showNotification(data.title || 'VenJS 5.0', options));
+    event.waitUntil(self.registration.showNotification(data.title || 'Chex 6.0', options));
 });
 
 self.addEventListener('notificationclick', function(event) {

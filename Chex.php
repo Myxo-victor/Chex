@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 /**
- * VenJS 5.5 Secure Database Engine
+ * Chex 6.0.0 Secure Database Engine
  *
  * Configure your database credentials in CONFIG below.
- * This endpoint is used by venjs.db.connect(...).
+ * This endpoint is used by Chex.db.connect(...).
  */
 
 header('Content-Type: application/json; charset=utf-8');
@@ -22,7 +22,7 @@ $CONFIG = [
     'db_pass' => '', #This too
     'db_charset' => 'utf8mb4',
 
-    // Create a long random secret key and use same key in venjs.db.connect({ apiKey: '...' }).
+    // Create a long random secret key and use same key in Chex.db.connect({ apiKey: '...' }).
     // Leave empty to disable API key enforcement (NOT recommended for production).
     'api_key' => 'CHANGE_THIS_TO_A_LONG_RANDOM_SECRET',
 
@@ -116,14 +116,14 @@ try {
         header('Access-Control-Allow-Origin: ' . $origin);
         header('Vary: Origin');
         header('Access-Control-Allow-Methods: POST, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type, X-Venjs-Key');
+        header('Access-Control-Allow-Headers: Content-Type, X-Chex-Key');
     } elseif ($origin !== '') {
         respond(403, ['ok' => false, 'error' => 'Origin not allowed.']);
     }
 
     $apiKey = trim((string)$CONFIG['api_key']);
     if ($apiKey !== '') {
-        $requestKey = (string)($_SERVER['HTTP_X_VENJS_KEY'] ?? '');
+        $requestKey = (string)($_SERVER['HTTP_X_CHEX_KEY'] ?? '');
         if ($requestKey === '' || !hash_equals($apiKey, $requestKey)) {
             respond(401, ['ok' => false, 'error' => 'Unauthorized request key.']);
         }

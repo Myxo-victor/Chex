@@ -1,17 +1,63 @@
-# Chex 6.0.0
+# ChexJs
 
-Chex is a lightweight JavaScript UI engine for fast, reactive, component-driven interfaces. It runs directly in the browser with no compiler or build step.
+[![npm version](https://img.shields.io/npm/v/@myxo-victor/chexjs/6.0.4)](https://www.npmjs.com/package/@myxo-victor/chexjs)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 
-## Quick start
+**Chex** is a lightweight, high-performance JavaScript UI engine for building reactive, component-driven interfaces. It runs directly in the browser with zero build steps, no compilers, and no `node_modules` overhead.
 
-Include the engine, then write components with the tag helpers you need:
+[📚 Documentation](https://chex.aximon.ng) | [💬 Help / Chat](mailto:ochiabutovictor8@gmail.com)
+
+---
+
+## What is Chex?
+
+| Tool | Type | Description |
+|---|---|---|
+| React | Library | A JavaScript library for building UIs |
+| Vue | Progressive Framework | Adoptable framework that scales |
+| Angular | Full Framework | Complete platform with all batteries included |
+| **Chex** | **Zero-Build UI Engine** | **A minimal, browser-native engine with signals, VDOM, and a built-in PHP backend bridge — just a script tag, no compiler** |
+
+Chex sits between a library and a micro-framework. It gives you structure (components, routing, state) without the weight of a full framework or the configuration of a modern build chain.
+
+---
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Fast Element API](#fast-element-api)
+- [Core Features](#core-features)
+- [Backend Database Engine](#backend-database-engine)
+- [Standalone Libraries](#standalone-libraries)
+- [Philosophy](#philosophy)
+- [License](#license)
+
+---
+
+## Installation
+
+Install via npm:
+
+```bash
+npm install @myxo-victor/chexjs
+```
+
+Or drop the script tag directly into your HTML:
 
 ```html
 <script src="./Chex.js"></script>
-<script src="./components/main.js"></script>
 ```
 
+---
+
+## Quick Start
+
+Import and write components using Chex's tag helpers:
+
 ```js
+import Chex from '@myxo-victor/chexjs';
+
 const { div, h1, button } = Chex;
 const app = document.getElementById('app');
 const count = Chex.signal(0);
@@ -24,13 +70,13 @@ const Counter = () => div({ class: 'counter' }, [
 Chex.render(app, Counter);
 ```
 
-## Fast element API
+---
 
-Chex tag helpers accept props when you have them, and accept children directly when you do not:
+## Fast Element API
+
+Chex tag helpers are flexible. You can provide props as the first argument, or omit them entirely to pass children directly:
 
 ```js
-const { div, h1, button } = Chex;
-
 // With props
 div({ class: 'hero' }, [
   h1({}, 'Title'),
@@ -44,26 +90,25 @@ div([
 ]);
 ```
 
-You can also use `Chex.div(...)`, `Chex.h1(...)`, and any standard HTML tag directly.
+---
 
-## Core features
+## Core Features
 
-- Fast VNode rendering and DOM patching with `Chex.render(...)`
-- Concise tag helpers and custom-tag support
-- Signals and effects: `Chex.signal(...)`, `Chex.effect(...)`
-- Hash or history routing with `Chex.createRouter(...)`
-- Fetch and cached query helpers through `Chex.api`
-- Secure PHP database client through `Chex.db`
-- Notifications, service-worker registration, and animation helpers
-- Reusable UI components: Button, Input, AppBar, SideBar, BottomNav, and Card
+- **Reactive State** — Built-in signals and effects (`Chex.signal`, `Chex.effect`)
+- **VDOM Patching** — Efficient DOM updates via `Chex.render`
+- **Zero-Dependency Routing** — Hash- or history-based routing with `Chex.createRouter`
+- **Integrated Backend** — Built-in PHP database client (`Chex.db`) and API helpers
+- **Standalone Helpers** — Additional engines for modals, skeleton loaders, sliders (`orbit`), and scroll animations (`rinx`, `scrollEcho`)
 
-## Backend database engine
+---
 
-`Chex.php` is the optional secure PHP/PDO endpoint used by `Chex.db.connect(...)`.
+## Backend Database Engine
+
+The optional `Chex.php` provides a secure PDO bridge for your frontend:
 
 ```js
 const server = Chex.db.connect({
-  endpoint: '/Chex.php',
+  endpoint: '/path/to/Chex.php',
   apiKey: 'YOUR_SECURE_API_KEY',
   table: 'users'
 });
@@ -72,50 +117,36 @@ await server.create({ email: 'demo@example.com' });
 const users = await server.read({ select: ['id', 'email'], limit: 10 });
 ```
 
-Open `Chex.php` to set database credentials, allowed origins, allowed tables, and the API key. The client sends the key in the `X-Chex-Key` header.
+---
 
-`Chex_notify.php` receives browser notification registrations. Pair it with `Chex.notification.ask('/Chex_notify.php')` when notifications are enabled.
+## Standalone Libraries
 
-## Included libraries
+All included UI libraries are dependency-free:
 
-All libraries are standalone and dependency-free. Load them after `Chex.js` when needed.
+| Library | Global | Purpose |
+|---|---|---|
+| `scrollEcho.js` | `ScrollEcho` | Scroll-triggered reveals |
+| `racket.js` | `racket` | Image carousel |
+| `orbit.js` | `orbit` | Swipe-friendly sliders |
+| `rinx.js` | `rinx` | Scroll-card layouts |
+| `smooth.js` | `smooth` | Continuous tickers |
+| `modal.js` | `modal` | Accessible modal engine |
+| `skeleton.js` | `skeleton` | Shimmer loaders |
 
-| File | Global | Purpose |
-| --- | --- | --- |
-| `scrollEcho.js` | `ScrollEcho` | Scroll-triggered text and element reveals. |
-| `racket.js` | `racket` | Responsive multi-panel image carousel. |
-| `orbit.js` | `orbit` | Swipe-friendly banner and slider helper. |
-| `rinx.js` | `rinx` | Horizontal and vertical scroll-card layouts. |
-| `smooth.js` | `smooth` | Continuous ticker and infinite carousel. |
-| `modal.js` | `modal` | Self-styling, zero-dependency accessible modal engine. |
-| `skeleton.js` | `skeleton` | DOM-to-skeleton shimmer loader that reduces layout shift. |
+---
 
-Example:
+## Philosophy
 
-```html
-<script src="./Chex.js"></script>
-<script src="./libs/modal.js"></script>
-<script src="./libs/skeleton.js"></script>
-```
+Chex is designed around three principles:
 
-## Project structure
+1. **Zero Build** — Write components in plain JavaScript. No JSX, no TypeScript compiler, no bundler required.
+2. **Signal-First** — State is simple: `Chex.signal(value)` gives you a reactive value. Components update automatically when signals change.
+3. **Full-Stack Ready** — Unlike most frontend tools, Chex includes a PHP backend bridge so you can build complete apps without reaching for a separate API layer.
 
-```text
-ChexJs/
-  Chex.js              Core engine
-  Chex.php             Optional PHP/PDO backend
-  Chex_notify.php      Notification registration endpoint
-  components/          Page components and views
-  libs/                Standalone visual and UI helpers
-  index.html           Welcome page launcher
-  index.css            Welcome page styles
-  sw.js                Service worker
-```
+The goal is to make building reactive UIs as easy as dropping a single `<script>` tag and writing plain functions.
 
-## Documentation
-
-Open `docs/index.html` through a local web server for the full API, component, backend, library, and example guides.
+---
 
 ## License
 
-MIT License. Copyright (c) 2026 Aximon. Created by Myxo Victor.
+MIT License. Copyright (c) 2026 Aximon. Created by **Myxo Victor**.

@@ -1,0 +1,12 @@
+{
+  "name": "chex.js",
+  "version": "6.0.4",
+  "description": "A zero-build UI framework with reactive signals, VDOM diffing, routing, state, and a built-in PHP backend bridge — just a script tag, no compiler.",
+  "main": "Chex.js",
+  "keywords": ["ui", "framework", "vdom", "signals", "Chex", "chexjs", "chex.js"],
+  "author": "Myxo Victor",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

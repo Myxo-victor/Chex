@@ -132,6 +132,7 @@ All included UI libraries are dependency-free:
 | `smooth.js` | `smooth` | Continuous tickers |
 | `modal.js` | `modal` | Accessible modal engine |
 | `skeleton.js` | `skeleton` | Shimmer loaders |
+| `dob.js` | `dob` | Date picker library |
 
 ---
 

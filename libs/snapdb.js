@@ -446,3 +446,44 @@
     global.SnapDB = SnapDB;
 
 })(typeof window !== 'undefined' ? window : this);
+
+
+/*
+----------------------------
+How to use this library - Myxo victor
+----------------------------
+the api code for this library
+
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Initialize SnapDB and wait for the connection to open[cite: 3]
+    const db = new SnapDB('my_app_cache');
+    await db.ready;
+
+    try {
+        // 2. Fetch real data directly from your backend API/database endpoint
+        const response = await fetch('https://api.yourdomain.com/v1/users');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // Parse the JSON response (assumes the API returns an array of user objects)
+        const realApiData = await response.json();
+
+        // 3. Replace the hardcoded array with your real API data inside db.sync()[cite: 3]
+        await db.sync(realApiData, 15);
+        console.log('Real API data successfully synced into SnapDB.');
+
+        // 4. Query or use the cached data normally[cite: 3]
+        const developers = await db.query({ role: 'developer' });
+        console.log('Queried developers from real data:', developers);
+
+    } catch (err) {
+        console.error('Failed to fetch and cache API data:', err);
+    }
+});
+
+
+*/

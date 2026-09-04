@@ -465,3 +465,50 @@
     };
 
 })(window);
+
+
+/*
+-------------------------------------
+How to use this library by Myxo victor
+--------------------------------------
+*/
+/*
+Let's take it that this is your html form
+------------------------------------------
+<form id="myForm">
+    <div id="step1">
+        <input type="text" name="username" required placeholder="Username">
+        <button type="button" data-chex="next">Next</button>
+    </div>
+    <div id="step2">
+        <input type="email" name="email" required placeholder="Email">
+        <button type="button" data-chex="back">Back</button>
+        <button type="button" data-chex="submit">Submit</button>
+    </div>
+</form>
+---------------------------------------------
+Now this is how chex form api code should look like 
+---------------------------------------------
+
+const formInstance = chex.form.start({
+    IDs: ['step1', 'step2'],
+    effect: 'slide', // Options: 'slide', 'rotate', 'fall'
+    legacyButtonDetection: false, // Set true to fallback to text parsing
+    buttonStyles: {
+        'btn-1': { background: '#4f46e5', color: '#ffffff', borderRadius: '4px' }
+    },
+    onStart: function(ctx) {
+        console.log('Form started at step index:', ctx.index);
+    },
+    onChange: function(ctx) {
+        console.log('Moved to step index:', ctx.currentIndex);
+    },
+    onValidationError: function(err) {
+        console.log('Invalid field:', err.field);
+    },
+    onSubmit: function(formData, form) {
+        console.log('Submitted data:', Object.fromEntries(formData.entries()));
+    }
+});
+
+*/

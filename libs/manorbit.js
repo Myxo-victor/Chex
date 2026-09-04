@@ -779,3 +779,57 @@
     global.manorbit = ManOrbit;
 
 })(window);
+
+
+/*
+----------------------------------
+How to use this library - by Myxo victor 
+----------------------------------
+*/
+/*
+Let's take it that this is your html card or anything code (anything with image you are building)
+
+<div class="carousel-wrapper">
+        <div id="slide-one">
+            <img src="https://picsum.photos/id/10/600/350" alt="Nature 1">
+        </div>
+        <div id="slide-two">
+            <img src="https://picsum.photos/id/20/600/350" alt="Nature 2">
+        </div>
+        <div id="slide-three">
+            <img src="https://picsum.photos/id/30/600/350" alt="Nature 3">
+        </div>
+    </div>
+
+-----------------------------------
+Here is how to use the api
+-----------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize ManOrbit gallery carousel using explicit element IDs[cite: 2]
+    const gallery = ManOrbit.slides({
+        IDs: ['slide-one', 'slide-two', 'slide-three'],[cite: 2]
+        interval: 600,      // Transition duration in milliseconds[cite: 2]
+        arrows: true,       // Enable navigation chevrons[cite: 2]
+        dots: true,         // Enable pagination dots[cite: 2]
+        swipe: true,        // Enable touch/pointer swipe gestures[cite: 2]
+        keyboard: true,     // Enable keyboard arrow navigation[cite: 2]
+        threshold: 50,      // Minimum pixel threshold for swipe detection[cite: 2]
+        onInit: (instance) => {
+            console.log('ManOrbit carousel initialized successfully.', instance);[cite: 2]
+        },
+        onSlideChange: (instance, realIndex) => {
+            console.log('Active slide changed to index:', realIndex);[cite: 2]
+        }
+    });
+});
+
+
+---------------------------------------------
+If the first api is hard, then use this simple one
+---------------------------------------------
+ manorbit.slides({
+    IDs: ['slide-one', 'slide-two', 'slide-three'],
+    interval: 1000,
+    dots: true
+ })
+*/

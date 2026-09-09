@@ -90,7 +90,7 @@
                 el.style.boxSizing = 'border-box';
 
                 if (idx === 0) {
-                    el.style.display = 'block';
+                    el.style.display = '';
                     el.style.opacity = '1';
                     el.style.transform = 'none';
                 } else {
@@ -332,7 +332,7 @@
                     currentEl.style.position = 'absolute';
                     currentEl.style.willChange = '';
 
-                    targetEl.style.display = 'block';
+                    targetEl.style.display = '';
                     targetEl.style.position = 'relative';
                     setInitialHiddenTransform(targetEl, animStyle);
                     targetEl.style.opacity = '0';

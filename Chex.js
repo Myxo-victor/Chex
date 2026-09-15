@@ -494,7 +494,19 @@ const Chex = (() => {
                 const res = await fetch(url, config);
                 if (!res.ok) {
                     const text = await res.text().catch(() => '');
-                    throw new Error(`HTTP ${res.status}: ${text || res.statusText}`);
+                    let payload = null;
+                    try {
+                        payload = text ? JSON.parse(text) : null;
+                    } catch (_) {
+                        // Non-JSON responses still use the HTTP status fallback below.
+                    }
+
+                    const error = new Error(
+                        payload?.message || `HTTP ${res.status}: ${text || res.statusText}`
+                    );
+                    error.status = res.status;
+                    error.payload = payload;
+                    throw error;
                 }
                 return await res.json();
             },

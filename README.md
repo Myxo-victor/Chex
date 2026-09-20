@@ -1,11 +1,21 @@
 # ChexJs
 
-[![npm version](https://img.shields.io/npm/v/@myxo-victor/chexjs/6.0.4)](https://www.npmjs.com/package/@myxo-victor/chexjs)
+[![npm version](https://img.shields.io/npm/v/@myxo-victor/chexjs/6.1.4)](https://www.npmjs.com/package/@myxo-victor/chexjs)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 
-**Chex** is a lightweight, high-performance JavaScript UI engine for building reactive, component-driven interfaces. It runs directly in the browser with zero build steps, no compilers, and no `node_modules` overhead.
+**Chex.js v6.1.4** is a lightweight, high-performance JavaScript UI engine for building reactive, component-driven interfaces. It runs directly in the browser with zero build steps, no compilers, and no `node_modules` overhead.
+
+This release reflects the current framework direction: a unified reactive engine with a richer set of browser-native utilities, form helpers, motion libraries, storage tools, and component-ready modules that now ship in the core project.
 
 [📚 Documentation](https://chex.aximon.ng) | [💬 Help / Chat](mailto:ochiabutovictor8@gmail.com)
+
+### Highlights in v6.1.4
+
+- Unified VDOM + reactive signal engine
+- Stronger component-oriented application structure
+- Expanded standalone utility library set
+- Form, modal, animation, carousel, and storage helpers ready to use
+- Smooth browser-first development without a bundler or framework setup
 
 ---
 
@@ -121,18 +131,22 @@ const users = await server.read({ select: ['id', 'email'], limit: 10 });
 
 ## Standalone Libraries
 
-All included UI libraries are dependency-free:
+Chex.js v6.1.4 ships with a broader utility toolkit in the `libs` folder, giving you modular browser-native building blocks for interface, motion, and data workflows:
 
 | Library | Global | Purpose |
 |---|---|---|
-| `scrollEcho.js` | `ScrollEcho` | Scroll-triggered reveals |
-| `racket.js` | `racket` | Image carousel |
-| `orbit.js` | `orbit` | Swipe-friendly sliders |
-| `rinx.js` | `rinx` | Scroll-card layouts |
-| `smooth.js` | `smooth` | Continuous tickers |
+| `chex-form.js` | `ChexForm` | Form helpers, validation, and input handling |
+| `scrollEcho.js` | `ScrollEcho` | Scroll-triggered reveals and reveal animations |
+| `racket.js` | `racket` | Image carousel and gallery motion |
+| `orbit.js` | `orbit` | Swipe-friendly slider engine |
+| `rinx.js` | `rinx` | Scroll-based card and layout effects |
+| `smooth.js` | `smooth` | Smooth motion and tickers |
 | `modal.js` | `modal` | Accessible modal engine |
-| `skeleton.js` | `skeleton` | Shimmer loaders |
-| `dob.js` | `dob` | Date picker library |
+| `skeleton.js` | `skeleton` | Shimmer-loading placeholders |
+| `dob.js` | `dob` | Date and UI control helpers |
+| `snapdb.js` | `snapDB` | IndexedDB-backed lightweight storage wrapper |
+| `triD.js` | `triD` | 3D motion and layered interaction effects |
+| `manorbit.js` | `manorbit` | Motion and orbital interaction library |
 
 ---
 

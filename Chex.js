@@ -8,6 +8,9 @@
 
 const Chex = (() => {
     const isWeb = typeof window !== 'undefined' && typeof document !== 'undefined';
+    const defaultApiEndpoint = isWeb
+        ? new URL('./api/index.php', document.currentScript?.src || window.location.href).href
+        : '/api/index.php';
 
     // --- UTILS ---
     const isEvent = (key) => key.startsWith("on");
@@ -286,41 +289,35 @@ const Chex = (() => {
     const UI = {
         button: (first, ...rest) => {
             const { props, children } = normalizeElementArgs(first, rest);
-            const baseClass = "px-6 py-2.5 rounded-xl font-bold transition-all active:scale-95 flex items-center justify-center gap-2 ";
-            const variant = props.variant === 'outline' 
-                ? "border-2 border-blue-600 text-blue-600 hover:bg-blue-50" 
-                : "bg-blue-600 text-white shadow-lg hover:shadow-blue-200";
-            return createVNode("button", { ...props, class: baseClass + variant + " " + (props.class || "") }, ...children);
+            return createVNode("button", { ...props }, ...children);
         },
-        input: (props = {}) => createVNode("div", { class: "flex flex-col gap-1 w-full" }, [
-            props.label ? createVNode("label", { class: "text-sm font-semibold text-gray-600 ml-1" }, props.label) : null,
-            createVNode("input", { 
-                ...props, 
-                class: "px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all " + (props.class || "") 
-            })
-        ]),
+        input: (props = {}) => {
+            const { label, class: className, ...inputProps } = props;
+            return label
+                ? createVNode("label", { class: className || "" }, [
+                    label,
+                    createVNode("input", inputProps)
+                ])
+                : createVNode("input", { ...inputProps, ...(className ? { class: className } : {}) });
+        },
         appBar: (props) => createVNode("nav", { 
-            class: "sticky top-0 z-50 w-full px-6 py-4 flex items-center justify-between backdrop-blur-md bg-white/80 border-b border-gray-100" 
+            ...(props.class ? { class: props.class } : {})
         }, [
-            createVNode("div", { class: "text-xl font-black tracking-tighter text-blue-600" }, props.title || "CHEX"),
-            createVNode("div", { class: "hidden md:flex gap-6 font-medium text-gray-600" }, props.links || []),
-            props.trailing || createVNode("div", { class: "w-8 h-8 rounded-full bg-gray-200" })
+            createVNode("div", {}, props.title || "CHEX"),
+            createVNode("div", {}, props.links || []),
+            props.trailing || createVNode("div", {})
         ]),
         sideBar: (props) => {
-            const isOpen = props.isOpen !== false;
-            return createVNode("aside", { 
-                class: `fixed left-0 top-0 h-full bg-white border-r border-gray-100 transition-all duration-300 z-[60] ${isOpen ? 'w-64' : 'w-0 -translate-x-full'} md:translate-x-0 md:w-64 p-6` 
-            }, props.children || []);
+            const { isOpen, children, ...elementProps } = props;
+            return createVNode("aside", elementProps, children || []);
         },
-        bottomNav: (props) => createVNode("div", { 
-            class: "fixed bottom-0 left-0 w-full h-16 bg-white border-t border-gray-100 flex md:hidden items-center justify-around px-4 pb-safe z-50" 
-        }, props.items || []),
+        bottomNav: (props) => {
+            const { items, ...elementProps } = props;
+            return createVNode("div", elementProps, items || []);
+        },
         card: (first, ...rest) => {
             const { props, children } = normalizeElementArgs(first, rest);
-            return createVNode("div", {
-                ...props,
-                class: "bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow " + (props.class || "")
-            }, ...children);
+            return createVNode("div", props, ...children);
         }
     };
 
@@ -566,7 +563,7 @@ const Chex = (() => {
             },
 
             connect: function(config = {}) {
-                const endpoint = config.endpoint || '/Chex.php';
+                const endpoint = config.endpoint || defaultApiEndpoint;
                 const defaultTable = config.table || null;
                 const options = {
                     apiKey: config.apiKey || '',
